@@ -9,17 +9,21 @@ def parse(message: discord.Message):
     if re.search("https:\/\/www.nytimes.com\/badges\/games\/mini.html",message.content):
         discordID = message.author.id
         gamename = "nytimesmini"
-        gamedate = parser.parse(re.search("(?:d=)(.+?)(?=&)",message.content)[1])
-        score = re.search("(?:\&t=)(.+?)(?=&)",message.content)[1]
-        timestamp = message.created_at
-        entry = {
-            "discord_ID" : discordID,
-            "game_name" : gamename,
-            "game_date" : gamedate,
-            "score" : score,
-            "timestamp" : timestamp
-        }
-        return entry
+        try: 
+            gamedate = parser.parse(re.search("(?:d=)(.+?)(?=&)",message.content)[1])
+            score = re.search("(?:\&t=)(.+?)(?=&)",message.content)[1]
+            timestamp = message.created_at
+            entry = {
+                "discord_ID" : discordID,
+                "game_name" : gamename,
+                "game_date" : gamedate,
+                "score" : score,
+                "timestamp" : timestamp
+            }
+            return entry
+        except:
+            print("error in parsing mini crossword")
+            return None
     # check if Connections
     # check if Wordle
     # check if []
