@@ -20,7 +20,14 @@ def get_entries_by_ID(client,ID):
     return(scores.find({"discordID" : ID}))
 
 def opt_in_user(client,username):
-    
+    return
+
+def opt_out_user(client,username):
+    return
+
+def validate_opt(client,username):
+    if TESTING: return True
+    return
 
 if __name__ == "__main__":
     import certifi
@@ -39,7 +46,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(e)
     
-    add_entry(client,example_score)
+    #add_entry(client,example_score)
     
     entries = get_entries_by_ID(client,1)
     for item in entries:

@@ -31,18 +31,22 @@ class MyClient(discord.Client):
             print(e)
             
     async def on_message(self, message):
-        if message.content.startswith('!gamesoptout'):
-            db.opt_out_user(self.dbclient, message)
-            await message.channel.send(f"{message.author.mention}, you've been opted out!")
-        if message.content.startswith('!gamesoptin'):
-            db.opt_in_user(self.dbclient, message)
-            await message.channel.send(f"{message.author.mention}, you've been opted in!")
+        if self.user in message.mentions:
+            if message.content.contains('optout'):
+                db.opt_out_user(self.dbclient, message)
+                await message.channel.send(f"{message.author.mention}, you've been opted out!")
+            if message.content.contains('optin'):
+                db.opt_in_user(self.dbclient, message)
+                await message.channel.send(f"{message.author.mention}, you've been opted in!")
+            if message.content.contains('scores'):
+                db.opt_in_user(self.dbclient, message)
+                await message.channel.send(f"{message.author.mention}, you've been opted in!")
+            else: await message.channel.send("who, me?")
             
         if db.validate_opt(self.dbclient, message):
             entry = parsegames.parse(message)
             if entry: db.add_entry(self.dbclient,entry)
-            if self.user in message.mentions:
-                await message.channel.send("who, me?")
+            
 
 if __name__ == "__main__":
     client = MyClient()
