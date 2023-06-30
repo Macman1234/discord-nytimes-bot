@@ -22,7 +22,7 @@ def parse(message: discord.Message):
             }
             return entry
         except:
-            print("error in parsing mini crossword")
+            #print("error in parsing mini crossword")
             return None
     # check if Connections
     # check if Wordle

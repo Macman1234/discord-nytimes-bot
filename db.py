@@ -8,16 +8,19 @@ def add_entry(client,entry):
     if TESTING: db = client['scoresdbtest']
     else: db = client['scoresdb']
     scores = db['scores']
-    scores.insert_one(entry)
-    print(entry)
-    return
+    if not scores.find_one(entry):
+        scores.insert_one(entry)
+        return 1
+    return 2
 
 # get entries
-def get_entries_by_ID(client,ID):
+def get_entries(client,author,game,count):
     if TESTING: db = client['scoresdbtest']
     else: db = client['scoresdb']
     scores = db['scores']
-    return(scores.find({"discordID" : ID}))
+    results = scores.find({"discord_ID" : author.id,"game_name":game}).sort("timestamp",1).limit(int(count))
+    results = list(results)
+    return(results)
 
 def opt_in_user(client,author):
     if TESTING: db = client['usersdbtest']

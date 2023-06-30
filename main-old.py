@@ -6,7 +6,7 @@ from pymongo.server_api import ServerApi
 
 import parsegames
 import db
-import creds
+import config
 
 class MyClient(discord.Client):
     def __init__(self) -> None:
@@ -16,7 +16,7 @@ class MyClient(discord.Client):
         super().__init__(intents=intents)
         
         # Create a MongoDB Client
-        uri = creds.dburi
+        uri = config.dburi
         # Create a new client and connect to the server
         self.dbclient = MongoClient(uri, tlsCAFile=ca, server_api=ServerApi('1'))
 
@@ -50,4 +50,4 @@ class MyClient(discord.Client):
 
 if __name__ == "__main__":
     client = MyClient()
-    client.run(creds.discordtoken)
+    client.run(config.discordtoken)
