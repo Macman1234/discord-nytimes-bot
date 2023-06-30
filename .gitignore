@@ -163,3 +163,4 @@ cython_debug/
 *.pem
 testdb.py
 creds.py
+config.py
